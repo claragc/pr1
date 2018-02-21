@@ -24,3 +24,55 @@ def mayor_tam(directorio,tam):
 			if os.path.getsize(f1)>t:
 				print file + '--->'+str(os.path.getsize(f1))
 
+# Sacar contenido de ficheros
+def cat(fichero):
+	if not os.access(fichero,0):
+		print "Fichero no existe"
+		exit()
+	if not os.path.isfile(fichero):
+		print "No es un fichero"
+		exit()
+	archivo=open(fichero,"r")
+	contenido=archivo.read()
+	print contenido
+	archivo.close()
+
+# Funcion grep
+def grep(fichero,texto):
+	if not os.access(fichero,0):
+		print "Fichero no existe"
+		exit()
+	if not os.path.isfile(fichero):
+		print "No es un fichero"
+		exit()
+	archivo=open(fichero,"r")
+	while True:
+		linea=archivo.readline()
+		if not linea:
+			break
+		if linea.count(texto)>0:
+			print linea
+	archivo.close()
+
+# Funcion copiar archivo
+def cp(f1,f2):
+	arc1=open(f1,"r")
+	arc2=open(f2,"w")
+	lineas=arc1.readlines()
+	for lin in lineas:
+		arc2.write(lin)
+	arc1.close()
+	arc2.close()
+
+# Funcion cp grep -> copia del f1 al f2 las lineas que tengan el texto "texto" en modo append
+def cp_grep(f1,f2,texto):
+	fd1=open(f1,"r")
+	fd2=open(f2,"a")
+	while True:
+		linea=fd1.readline()
+		if not linea:
+			break
+		if linea.count(texto)>0:
+			fd2.write(linea)
+	fd1.close()
+	fd2.close()
